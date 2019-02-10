@@ -200,31 +200,6 @@ namespace Assignment2_S19
         // Complete the dayOfProgrammer function below.
         static string dayOfProgrammer(int year)
         {
-            int RegularDays = 243;              // total regular days of month from january to august (non leap year)
-            int ProgDays = 256;   
-            int SeptDays = ProgDays - RegularDays;  // programming day in sept. month
-
-            if(year>=1700 && year<=1917)    // for julian calender system
-            {
-                if(year%4==0)               // checking for leap year condition
-                {
-                    SeptDays = SeptDays - 1;
-                }
-
-            }
-            if(year>1918)       // for gregorian calender system
-            {
-                if((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)) // checking for leap year condition
-                {
-                    SeptDays = SeptDays - 1;
-                }
-            }
-            if(year == 1918)        // for transition year
-            {
-                SeptDays = SeptDays + 14;
-            }
-            Console.WriteLine(SeptDays + ".09." + year);
-            Console.ReadKey();
             return "";
         }
     }
