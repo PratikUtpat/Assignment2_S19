@@ -34,47 +34,21 @@ namespace Assignment2_S19
 
             // grading students
             Console.WriteLine("\n\nGrading students");
-            int[] grades = { 73, 67, 38, 33 };          // original given array of grades
-            Console.WriteLine("Original marks before rounding off the grade:");
-            displayArray(grades);                       // displaying given array of grades before rounding off
-            bool check = true;
-            for (int j = 0; j < grades.Length; j++)     // for loop used for iteration and checking if all the numbers are between 0 to 100
-            {
-                if (grades[j] < 0 || grades[j] > 100) // checking validation - all the grades should be between 0 to 100
-                {
-                    Console.WriteLine("\nall the grades should be between 0 to 100.");
-                    check = false;
-                }
-            }
-            if (check)      // in this block, if all the numbers are between 0 to 100 then we will call method and start applying the round off rules
-            {
-                int[] r3 = gradingStudents(grades);         // calling function to apply conditions and round off grades and getting result in array r3
-                Console.WriteLine("\nMarks after rounding off the grade:");
-                displayArray(r3);                           // displaying array of grades after rounding off
-            }
-                Console.ReadKey();
+            int[] grades = { 73, 67, 38, 33 };          
+            int[] r3 = gradingStudents(grades);
+            displayArray(r3);
 
             // find the median
             Console.WriteLine("\n\nFind the median");
             int[] arr2 = { 0, 1, 2, 4, 6, 5, 3};
-            Console.WriteLine("Original given array of numbers:");
-            displayArray(arr2);                       // displaying given array of numbers
-            int[] arrSorted = SortNumbers(arr2);
-            Console.WriteLine(findMedian(arrSorted));
+            Console.WriteLine(findMedian(arr2));
 
             // closest numbers
             Console.WriteLine("\n\nClosest numbers");
-            int[] arr3 = { 5, 4, 3, 2 };
-            Console.WriteLine("Original given array of numbers:");
-            displayArray(arr3);                       // displaying given array of numbers
-            if (arr3.Length <= 1)                     // validation - there should not be only 1 input, at least 2 inputs
-                return;
-
-            int[] sortedArray = SortNumbers(arr3);
-            int[] r4 = closestNumbers(sortedArray);
-            Console.WriteLine("\npair of elements that have the smallest absolute difference between them:");
-            displayArray(r4);
-            Console.ReadKey();
+            //int[] arr3 = { 5, 4, 3, 2 };
+            int[] arr3 = { 6, -5, 15, 25, 71, 63 };
+            int[] r4 = closestNumbers(arr3);
+            displayArray(r4);            
 
             // Day of programmer
             Console.WriteLine("\n\nDay of Programmer");
@@ -117,7 +91,16 @@ namespace Assignment2_S19
         // Complete the gradingStudents function below.
         static int[] gradingStudents(int[] grades)
         {
-            try
+            bool check = true;
+            for (int j = 0; j < grades.Length; j++)     // for loop used for iteration and checking if all the numbers are between 0 to 100
+            {
+                if (grades[j] < 0 || grades[j] > 100) // checking validation - all the grades should be between 0 to 100
+                {
+                    check = false;
+                }
+            }
+
+            if (check)      // in this block, if all the numbers are between 0 to 100 then we will call method and start applying the round off rules
             {
                 for (int i = 0; i < grades.Length; i++)     // for loop used for iteration to get every number of array one by one
                 {
@@ -129,11 +112,10 @@ namespace Assignment2_S19
                         }
                     }
                 }
-                Console.ReadKey();
             }
-            catch
+            else
             {
-                Console.WriteLine("Exception occured while computing gradingStudents()");
+                Console.WriteLine("\nall the grades should be between 0 to 100.");
             }
             return grades;      // returning updated array which contains rounded off grades
         }
@@ -141,9 +123,9 @@ namespace Assignment2_S19
         // method for sorting array in ascending order
         static int[] SortNumbers(int[] arr)
         {
-            for (int i = 0; i < arr.Length-1; i++)
+            for (int i = 0; i < arr.Length-1; i++)      // loop for iteration
             {
-                for (int j = i + 1; j < arr.Length; j++)
+                for (int j = i + 1; j < arr.Length; j++)    // loop for comparing numbers and swapping
                 {
                     if (arr[j] < arr[i])
                     {
@@ -159,52 +141,90 @@ namespace Assignment2_S19
         // Complete the findMedian function below.
         static int findMedian(int[] arr)
         {
-            decimal median = 0;
-            int len = arr.Length;
+            int median = 0;
+            try
+            {
+                arr = SortNumbers(arr);     // we will get the sorted array here.
+                int len = arr.Length;
 
-            if (len % 2 == 0)
-            {
-                int num1 = arr[len / 2];
-                int num2 = arr[(len / 2) - 1];
-                median = (num1 + num2) / 2;
+                if (arr == null || len == 0 || len % 2 == 0)    // corner case - checking if the array is not null or empty of having insufficient numbers
+                {
+                    Console.WriteLine("\nArray can not be empty or null or having even number of elements");
+                }
+                else
+                {
+                    median = arr[(len) / 2];        // getting the median of array
+                }
             }
-            else
+            catch
             {
-                median = arr[(len) / 2];
+                Console.WriteLine("Exception occured while computing findMedian()");
             }
-            Console.WriteLine("\nMedian of the given array of numbers is: {0}",median);
             Console.ReadKey();
-            return 0;
+            return median;
         }
 
         // Complete the closestNumbers function below.
         static int[] closestNumbers(int[] arr)
-        { 
-            int min = arr[1] - arr[0];
-            List<int> pairs = new List<int>();
-
-            for (int i = 2; i< arr.Length-1; i++) // for getting the minimun difference among all the numbers
+        {
+            int[] pairsFinal;
+            List<int> pairs = new List<int>();         // using list because we are not sure of array size
+            if (arr.Length <= 1)                     // corner case - there should not be only 1 input, we need at least 2 inputs
             {
-                int diff = arr[i] - arr[i - 1];
-                if (diff < min)
-                    min = diff;
+                Console.WriteLine("Provide at least 2 numbers");
             }
-            for (int i = 1; i< arr.Length; i++)
+            else
             {
-                if ((arr[i] - arr[i - 1]) == min)
+                arr = SortNumbers(arr);             // we will get the sorted array here
+                int min = Math.Abs(arr[1] - arr[0]);    // getting the difference between first 2 elements while initialsing 'min' variable
+
+                for (int i = 2; i < arr.Length ; i++) // this loop is for getting the minimun difference among all the numbers
                 {
-                    pairs.Add(arr[i - 1]);
-                    pairs.Add(arr[i]);
+                    int diff = Math.Abs(arr[i] - arr[i - 1]);
+                    if (diff < min)
+                        min = diff;
+                }
+                for (int i = 1; i < arr.Length; i++)        // here we are looking for the pairs which have the minimum difference that we got in last loop.
+                {
+                    if ((Math.Abs(arr[i] - arr[i - 1])) == min)
+                    {
+                        pairs.Add(arr[i - 1]);                  // adding pairs to the list
+                        pairs.Add(arr[i]);              
+                    }
                 }
             }
-            Console.ReadKey();
-            int[] pairsFinal = pairs.ToArray();
+            pairsFinal = pairs.ToArray();           // converting list to array
             return pairsFinal;
         }
 
         // Complete the dayOfProgrammer function below.
         static string dayOfProgrammer(int year)
         {
+            int RegularDays = 243;              // total regular days of month from january to august (non leap year)
+            int ProgDays = 256;   
+            int SeptDays = ProgDays - RegularDays;  // programming day in sept. month
+
+            if(year>=1700 && year<=1917)    // for julian calender system
+            {
+                if(year%4==0)               // checking for leap year condition
+                {
+                    SeptDays = SeptDays - 1;
+                }
+
+            }
+            if(year>1918)       // for gregorian calender system
+            {
+                if((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)) // checking for leap year condition
+                {
+                    SeptDays = SeptDays - 1;
+                }
+            }
+            if(year == 1918)        // for transition year
+            {
+                SeptDays = SeptDays + 14;
+            }
+            Console.WriteLine(SeptDays + ".09." + year);
+            Console.ReadKey();
             return "";
         }
     }
