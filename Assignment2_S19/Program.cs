@@ -22,7 +22,7 @@ namespace Assignment2_S19
 
             // Balanced sums
             Console.WriteLine("\n\nBalanced sums");
-            List<int> arr = new List<int> { 2,0,0 };
+            List<int> arr = new List<int> { 1,2,3 };
             Console.WriteLine(balancedSums(arr));
 
             // Missing numbers
@@ -67,7 +67,9 @@ namespace Assignment2_S19
         // Complete the rotLeft function below.
         static int[] rotLeft(int[] a, int d)
         {
-                int[] b = new int[a.Length]; // Here we created a new array i.e. b equal to the length of array a.
+            if (a == null || a.Length == 0)
+                return a;
+            int[] b = new int[a.Length]; // Here we created a new array i.e. b equal to the length of array a.
 
                 int n; // here we create an n variable so that we can apply our logic through index of an array
                 int length = a.Length; // Here we created length variable which is equal to the length of array a.
@@ -126,7 +128,10 @@ namespace Assignment2_S19
         static int maximumToys(int[] prices, int k)
 
         {
-
+            if (prices == null || k < 0)
+            {
+                return 0;
+            }
             int[] sorted = sortArr(prices); // Here we sort our price array through our defined sort method
             int sum = 0, i; // Declare two integers sum which is equal to 0 and i
             for (i = 0; i < sorted.Length; i++) // Here we applied for loop. In whic we declare an integer i equal to 0 and applied a condition in which i should be less than length of sorted array. Untill this condition breaks the loop wiil execute.
@@ -148,21 +153,35 @@ namespace Assignment2_S19
         // Complete the balancedSums function below.
         static string balancedSums(List<int> arr)
         {
-            int n = arr.Count; // here we create integer n and assigning it to length of the array (arr.Count will count total elements in an array)
-            int rSum = 0; // Declare a integer sum which set 0
-            int lSum = 0; // declare an integer lsum set to 0 as the element is at index 0
-            for (int i = 0; i < n; ++i) // (To comput rigth sum)here we applied for loop in which we declare integer i set to 0 and also applied a condition which is i should be less than n(i.e. length of array) 
-                rSum += arr[i]; //
-
-            for (int i = 0; i < i + 1; ++i) //(Checking a point where lSum==rSum) We applied for loop here and applied a condition that i should be less than i+1 . if it satisfy the condition enter the loop
+           // a null list has no sums so therefore it doesn't have balanced sums
+            if (arr == null)
             {
-
-                lSum += arr[i]; // Sum for left at index i 
-                rSum -= arr[i + 1]; // Sum for right at index i+1
-                if (lSum == rSum) // if loop applied inside for loop to provide a specific condition which checks leftsum (lSum) is equal to rightsum(rSum)
-                    return "Yes"; // if it does then print yes                
+                return "NO";
             }
-            return "No"; // and if it doesnot then return no
+            int sumLeft = 0;
+            int sumRight = 0;
+
+            // loop through the list to determine the sum  of the list after the first integer
+            for (int i=1; i<arr.Count; i++)
+            {
+                sumRight += arr[i];
+            }
+            
+            // comparing the sum, if it is same then 'YES' otherwise calculating values of left and right sum
+            for (int j = 0; j < (arr.Count - 1); j++)
+            {
+                if (sumRight == sumLeft)
+                {
+                    return "YES";
+                }
+                else
+                {
+                    sumLeft += arr[j];
+                    sumRight -= arr[j + 1];
+                }
+            }
+            // we have checked the entire array without finding a balance point
+            return "NO";
         }
 
         // Complete the missingNumbers function below.
@@ -173,6 +192,7 @@ namespace Assignment2_S19
             int n = 0; // created an another interger k and set it 0
             int curr; // created an another interger curr
             int miss; // created an another interger miss
+            List<int> list = new List<int>();
 
             arr = sortArr(arr); // As the sortArr is already build above. so we used that function to sort the array arr
             brr = sortArr(brr); // Same sortArr method is also applied here to sort array brr
@@ -190,13 +210,13 @@ namespace Assignment2_S19
                     else // If it doesnot satisfy the above If statement then it will fall to else.
                     {
                         miss = brr[i];
-                        Console.WriteLine(miss); // here we are printing out the missing value
+                        list.Add(miss);
                         n++; // now integer n will keep on increasing
                         i++; // now the first value of i checked and cannot exit the loop untill i exceeds brr.Length 
                     }
                 }
             }
-            return new int[] { };
+            return list.ToArray();
         }
 
 
