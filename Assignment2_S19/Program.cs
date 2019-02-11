@@ -154,7 +154,7 @@ namespace Assignment2_S19
             for (int i = 0; i < n; ++i) // (To comput rigth sum)here we applied for loop in which we declare integer i set to 0 and also applied a condition which is i should be less than n(i.e. length of array) 
                 rSum += arr[i]; //
 
-            for (int i = 0; i < i + 1; ++i) // We applied for loop here and applied a condition that i should be less than n-1 . if it satisfy the condition enter the loop
+            for (int i = 0; i < i + 1; ++i) //(Checking a point where lSum==rSum) We applied for loop here and applied a condition that i should be less than i+1 . if it satisfy the condition enter the loop
             {
 
                 lSum += arr[i]; // Sum for left at index i 
