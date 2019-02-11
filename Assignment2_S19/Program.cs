@@ -168,6 +168,34 @@ namespace Assignment2_S19
         // Complete the missingNumbers function below.
         static int[] missingNumbers(int[] arr, int[] brr)
         {
+            int i = 0; // created an integer i and set the value of i=0
+            int j = 0; // created an another interger j and set it 0
+            int n = 0; // created an another interger k and set it 0
+            int curr; // created an another interger curr
+            int miss; // created an another interger miss
+
+            arr = sortArr(arr); // As the sortArr is already build above. so we used that function to sort the array arr
+            brr = sortArr(brr); // Same sortArr method is also applied here to sort array brr
+            int[] c = new int[brr.Length]; // Here we created a new array c which is equal to the lenght of array brr
+            while (i < brr.Length) // Here we applied while loop. This loop ends when this condition (i<brr.Lenght) breaks. It means when i is greater than brr.Length 
+            {
+                curr = arr[i]; // here we track the current value of array
+                while (j < arr.Length) // while loop is applied here inside while loop. Now this loop will continue untill it breaks the condition for j which should be less than arr.length.
+                {
+                    if (brr[i] == arr[j]) // If statement is applied here. It checks the value in brr array at i position is equal to the value of array arr at i position
+                    {
+                        i++; // If the condition satisfy i will keep on increasing and outter loop will keep going on
+                        j++; // If the condition satisfy j will keep on increasing and inner loop will keep going on
+                    }
+                    else // If it doesnot satisfy the above If statement then it will fall to else.
+                    {
+                        miss = brr[i];
+                        Console.WriteLine(miss); // here we are printing out the missing value
+                        n++; // now integer n will keep on increasing
+                        i++; // now the first value of i checked and cannot exit the loop untill i exceeds brr.Length 
+                    }
+                }
+            }
             return new int[] { };
         }
 
