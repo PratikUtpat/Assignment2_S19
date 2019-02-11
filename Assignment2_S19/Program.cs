@@ -191,7 +191,7 @@ namespace Assignment2_S19
                     else // If it doesnot satisfy the above If statement then it will fall to else.
                     {
                         miss = brr[i];
-                        Console.WriteLine(miss); // here we are printing out the missing value
+                        //Console.WriteLine(miss); // here we are printing out the missing value
                         n++; // now integer n will keep on increasing
                         i++; // now the first value of i checked and cannot exit the loop untill i exceeds brr.Length 
                     }
@@ -291,7 +291,7 @@ namespace Assignment2_S19
             List<int> pairs = new List<int>();         // using list because we are not sure of array size
             try
             {
-                if (arr.Length <= 1)                     // corner case - there should not be only 1 input, we need at least 2 inputs
+                if (arr == null || arr.Length <= 1)                     // corner case - there should not be only 1 input, we need at least 2 inputs
                 {
                     Console.WriteLine("Provide at least 2 numbers");
                 }
@@ -353,9 +353,6 @@ namespace Assignment2_S19
                     SeptDays = SeptDays + 14;
                 }
                 return SeptDays + ".09." + year;
-
-                
-                
             }
 
             catch
