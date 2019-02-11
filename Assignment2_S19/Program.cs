@@ -66,19 +66,103 @@ namespace Assignment2_S19
         // Complete the rotLeft function below.
         static int[] rotLeft(int[] a, int d)
         {
-            return new int[] {};
+            int[] b = new int[a.Length]; // Here we created a new array i.e. b equal to the length of array a.
+
+            int n; // here we create an n variable so that we can apply our logic through index of an array
+            int length = a.Length; // Here we created length variable which is equal to the length of array a.
+            int place; // here we create a place variable.
+
+
+            for (int i = 0; i < length; i++) // Here we applied a for loop in which i declare a variable i and this loop will be on for 5 times as i should be less than length variable which is equal to the length of an array a.
+            {
+                n = i - d; // Here we started buiding our left shift rotation logic. In this line we are selecting the index of elements present in an array a. 
+                place = length + n; // Here we are selecting the index of an element which needs to be moved.
+                if (n >= 0) // here we applied if loop to decide the position of the selected element on the basis of index . If the index is greater than or equal to 0 then the element will enter the loop and added to the new array b.
+                {
+                    b[n] = a[i]; // if element's index satisfies the condition then it will add to an array b and the element of array a present at i index will move to the array b[index].
+                }
+                else // if the element's index doesn't satisfy the above condition will fall to else statement
+                {
+                    b[place] = a[i]; // now the element will be placed according to the index
+                }
+            }
+            return b; // return array b
         }
 
         // Complete the maximumToys function below.
-        static int maximumToys(int[] prices, int k)
+        static int[] sortArr(int[] arr) // We are sorting our array through this general algorithm of sorting.
         {
-            return 0;
+            int mini; // Here we create a minimum
+            
+            int n; // here we declare integer n which help me to complete my indexing logic
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                mini = i; // Here we set our mini variable to index of an array
+                // From the min_position, check to see if the next element is smaller
+                for (int x = i + 1; x < arr.Length; x++) // here we apply for loop in which we declare integer x and assign it to the i+1 (It means we are taking next element with i index) and condition is x should be less than length of array. 
+                {
+                    if (arr[x] < arr[mini]) // If the next element is smaller than my mini variable, then make it my mini variable
+                    {
+                        mini = x; //mini will keep track of the index, this is needed when exchange will take place
+                    }
+                }
+
+                // If the min_po does not equal the current element being evaluated in the loop
+                // Then execute the swap. by switching the postion of the lowest with the current element
+                if (mini != i) // It will check my mini variable if it is not equal to i then it will enter the loop
+                {
+                    n = arr[i]; // Here we used our declared variable n and we assign to array element present at i index
+                    arr[i] = arr[mini]; // Now they will exchenge their position of lowest mini with index i
+                    arr[mini] = n; // And assigning it to the n variable. This is how we exchange if element of index i is greater than mini
+                }
+            }
+            return arr; // returning array
         }
+
+        static int maximumToys(int[] prices, int k)
+
+        {
+
+            int[] sorted = sortArr(prices); // Here we sort our price array through our defined sort method
+            int sum = 0, i; // Declare two integers sum which is equal to 0 and i
+            for (i = 0; i < sorted.Length; i++) // Here we applied for loop. In whic we declare an integer i equal to 0 and applied a condition in which i should be less than length of sorted array. Untill this condition breaks the loop wiil execute.
+            {
+                if (sum < k) // here we applied if loop. According to this loop if sum is less than k (which is nothing but the amount the person willing to spend) and if it satify it enters this loop.
+                {
+                    sum += sorted[i]; // So according to this elements present i index will add to integer sum
+                }
+                else // If the sum is greater than k then it will enter else 
+                {
+                    break; // it will break
+                }
+            }
+
+            return i - 1;
+        }
+        
 
         // Complete the balancedSums function below.
         static string balancedSums(List<int> arr)
         {
-            return "";
+            int n = arr.Count; // here we create integer n and assigning it to length of the array (arr.Count will count total elements in an array)
+            int sum = 0; // Declare a integer sum which set 0
+
+            for (int i = 0; i < n; ++i) // (To calculate the sum of whole array)here we applied for loop in which we declare integer i set to 0 and also applied a condition which is i should be less than n(i.e. length of array) 
+                sum += arr[i]; // And if it satisfy the element at index i will add to integer sum.
+
+            int rSum = sum - arr[0]; // To calculate right side of element at index 0
+            int lSum = 0; // declare an integer lsum set to 0 as the element is at index 0
+
+            for (int i = 0; i < n - 1; ++i) // We applied for loop here and applied a condition that i should be less than n-1 . if it satisfy the condition enter the loop
+            {
+
+                lSum += arr[i]; // Sum for left at index i 
+                rSum -= arr[i + 1]; // Sum for right at index i+1
+                if (lSum == rSum) // if loop applied inside for loop to provide a specific condition which checks leftsum (lSum) is equal to rightsum(rSum)
+                    return "Yes"; // if it does then print yes                
+            }
+            return "No"; // and if it doesnot then return no
         }
 
         // Complete the missingNumbers function below.
