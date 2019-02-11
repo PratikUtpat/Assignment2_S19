@@ -70,7 +70,8 @@ namespace Assignment2_S19
             if (a == null || a.Length == 0)
                 return a;
             int[] b = new int[a.Length]; // Here we created a new array i.e. b equal to the length of array a.
-
+            try
+            {
                 int n; // here we create an n variable so that we can apply our logic through index of an array
                 int length = a.Length; // Here we created length variable which is equal to the length of array a.
                 int place; // here we create a place variable.
@@ -89,7 +90,11 @@ namespace Assignment2_S19
                         b[place] = a[i]; // now the element will be placed according to the index
                     }
                 }
-
+            }
+            catch
+            {
+                Console.WriteLine("Exception occured while computing rotLeft()");
+            }
                 return b; // return array b
      
         }
@@ -193,28 +198,34 @@ namespace Assignment2_S19
             int curr; // created an another interger curr
             int miss; // created an another interger miss
             List<int> list = new List<int>();
-
-            arr = sortArr(arr); // As the sortArr is already build above. so we used that function to sort the array arr
-            brr = sortArr(brr); // Same sortArr method is also applied here to sort array brr
-            int[] c = new int[brr.Length]; // Here we created a new array c which is equal to the lenght of array brr
-            while (i < brr.Length) // Here we applied while loop. This loop ends when this condition (i<brr.Lenght) breaks. It means when i is greater than brr.Length 
+            try
             {
-                curr = arr[i]; // here we track the current value of array
-                while (j < arr.Length) // while loop is applied here inside while loop. Now this loop will continue untill it breaks the condition for j which should be less than arr.length.
+                arr = sortArr(arr); // As the sortArr is already build above. so we used that function to sort the array arr
+                brr = sortArr(brr); // Same sortArr method is also applied here to sort array brr
+                int[] c = new int[brr.Length]; // Here we created a new array c which is equal to the lenght of array brr
+                while (i < brr.Length) // Here we applied while loop. This loop ends when this condition (i<brr.Lenght) breaks. It means when i is greater than brr.Length 
                 {
-                    if (brr[i] == arr[j]) // If statement is applied here. It checks the value in brr array at i position is equal to the value of array arr at i position
+                    curr = arr[i]; // here we track the current value of array
+                    while (j < arr.Length) // while loop is applied here inside while loop. Now this loop will continue untill it breaks the condition for j which should be less than arr.length.
                     {
-                        i++; // If the condition satisfy i will keep on increasing and outter loop will keep going on
-                        j++; // If the condition satisfy j will keep on increasing and inner loop will keep going on
-                    }
-                    else // If it doesnot satisfy the above If statement then it will fall to else.
-                    {
-                        miss = brr[i];
-                        list.Add(miss);
-                        n++; // now integer n will keep on increasing
-                        i++; // now the first value of i checked and cannot exit the loop untill i exceeds brr.Length 
+                        if (brr[i] == arr[j]) // If statement is applied here. It checks the value in brr array at i position is equal to the value of array arr at i position
+                        {
+                            i++; // If the condition satisfy i will keep on increasing and outter loop will keep going on
+                            j++; // If the condition satisfy j will keep on increasing and inner loop will keep going on
+                        }
+                        else // If it doesnot satisfy the above If statement then it will fall to else.
+                        {
+                            miss = brr[i];
+                            list.Add(miss);
+                            n++; // now integer n will keep on increasing
+                            i++; // now the first value of i checked and cannot exit the loop untill i exceeds brr.Length 
+                        }
                     }
                 }
+            }
+            catch
+            {
+                Console.WriteLine("Exception occured while computing missingNumbers()");
             }
             return list.ToArray();
         }
