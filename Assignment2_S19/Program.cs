@@ -22,7 +22,7 @@ namespace Assignment2_S19
 
             // Balanced sums
             Console.WriteLine("\n\nBalanced sums");
-            List<int> arr = new List<int> { 1, 2, 3 };
+            List<int> arr = new List<int> { 2,0,0 };
             Console.WriteLine(balancedSums(arr));
 
             // Missing numbers
@@ -67,27 +67,29 @@ namespace Assignment2_S19
         // Complete the rotLeft function below.
         static int[] rotLeft(int[] a, int d)
         {
-            int[] b = new int[a.Length]; // Here we created a new array i.e. b equal to the length of array a.
+                int[] b = new int[a.Length]; // Here we created a new array i.e. b equal to the length of array a.
 
-            int n; // here we create an n variable so that we can apply our logic through index of an array
-            int length = a.Length; // Here we created length variable which is equal to the length of array a.
-            int place; // here we create a place variable.
+                int n; // here we create an n variable so that we can apply our logic through index of an array
+                int length = a.Length; // Here we created length variable which is equal to the length of array a.
+                int place; // here we create a place variable.
 
 
-            for (int i = 0; i < length; i++) // Here we applied a for loop in which i declare a variable i and this loop will be on for 5 times as i should be less than length variable which is equal to the length of an array a.
-            {
-                n = i - d; // Here we started buiding our left shift rotation logic. In this line we are selecting the index of elements present in an array a. 
-                place = length + n; // Here we are selecting the index of an element which needs to be moved.
-                if (n >= 0) // here we applied if loop to decide the position of the selected element on the basis of index . If the index is greater than or equal to 0 then the element will enter the loop and added to the new array b.
+                for (int i = 0; i < length; i++) // Here we applied a for loop in which i declare a variable i and this loop will be on for 5 times as i should be less than length variable which is equal to the length of an array a.
                 {
-                    b[n] = a[i]; // if element's index satisfies the condition then it will add to an array b and the element of array a present at i index will move to the array b[index].
+                    n = i - d; // Here we started buiding our left shift rotation logic. In this line we are selecting the index of elements present in an array a. 
+                    place = length + n; // Here we are selecting the index of an element which needs to be moved.
+                    if (n >= 0) // here we applied if loop to decide the position of the selected element on the basis of index . If the index is greater than or equal to 0 then the element will enter the loop and added to the new array b.
+                    {
+                        b[n] = a[i]; // if element's index satisfies the condition then it will add to an array b and the element of array a present at i index will move to the array b[index].
+                    }
+                    else // if the element's index doesn't satisfy the above condition will fall to else statement
+                    {
+                        b[place] = a[i]; // now the element will be placed according to the index
+                    }
                 }
-                else // if the element's index doesn't satisfy the above condition will fall to else statement
-                {
-                    b[place] = a[i]; // now the element will be placed according to the index
-                }
-            }
-            return b; // return array b
+
+                return b; // return array b
+     
         }
 
         // Complete the maximumToys function below.
@@ -147,15 +149,12 @@ namespace Assignment2_S19
         static string balancedSums(List<int> arr)
         {
             int n = arr.Count; // here we create integer n and assigning it to length of the array (arr.Count will count total elements in an array)
-            int sum = 0; // Declare a integer sum which set 0
-
-            for (int i = 0; i < n; ++i) // (To calculate the sum of whole array)here we applied for loop in which we declare integer i set to 0 and also applied a condition which is i should be less than n(i.e. length of array) 
-                sum += arr[i]; // And if it satisfy the element at index i will add to integer sum.
-
-            int rSum = sum - arr[0]; // To calculate right side of element at index 0
+            int rSum = 0; // Declare a integer sum which set 0
             int lSum = 0; // declare an integer lsum set to 0 as the element is at index 0
+            for (int i = 0; i < n; ++i) // (To comput rigth sum)here we applied for loop in which we declare integer i set to 0 and also applied a condition which is i should be less than n(i.e. length of array) 
+                rSum += arr[i]; //
 
-            for (int i = 0; i < n - 1; ++i) // We applied for loop here and applied a condition that i should be less than n-1 . if it satisfy the condition enter the loop
+            for (int i = 0; i < i + 1; ++i) // We applied for loop here and applied a condition that i should be less than n-1 . if it satisfy the condition enter the loop
             {
 
                 lSum += arr[i]; // Sum for left at index i 
